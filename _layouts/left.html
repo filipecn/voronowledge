@@ -1,0 +1,157 @@
+<html>
+
+<head>
+    <script src="/items/demos_assets/jquery.min.js"></script>
+    <meta name="viewport" content="initial-scale=1">
+    <meta name="viewport" content="user-scalable=yes,width=device-width,initial-scale=1">
+
+    <title>{{ site.title }}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,600,900");
+        @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css");
+    </style>
+    <link rel="stylesheet" href="{{site.baseurl}}/_assets/css/voro.css" />
+
+    <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+
+</head>
+
+<body class="left-sidebar">
+    <div id="page-wrapper">
+        <div class="container">
+
+            {% include nav-full.html %}
+
+            <div class="wrapper">
+                <div class="row 200%">
+
+                    <div id="sidebar" class="4u 12u(mobile)">
+                        <section>
+                            <header>
+                                <h2>Mauris vulputate</h2></header>
+                            <p>Phasellus quam turpis, feugiat sit amet ornare in, hendrerit in lectus. Praesent semper mod quis eget mi. Etiam eu ante risus. Aliquam erat volutpat. Aliquam luctus et mattis lectus sit amet pulvinar. Nam turpis nisi consequat
+                                etiam.</p><a class="button" style="cursor: pointer;">Find out more</a></section>
+                        <section>
+                            {{ page.leftbar }}
+                            <header>
+                                <h2>Integer gravida</h2></header>
+                            <ul class="style1">
+                                <li><a style="cursor: pointer;">Amet turpis, feugiat et sit amet</a></li>
+                                <li><a style="cursor: pointer;">Ornare in hendrerit in lectus</a></li>
+                                <li><a style="cursor: pointer;">Semper mod quis eget mi dolore</a></li>
+                                <li><a style="cursor: pointer;">Quam turpis feugiat sit dolor</a></li>
+                                <li><a style="cursor: pointer;">Amet ornare in hendrerit in lectus</a></li>
+                                <li><a style="cursor: pointer;">Semper mod quisturpis nisi</a></li>
+                                <li><a style="cursor: pointer;">Consequat etiam lorem phasellus</a></li>
+                                <li><a style="cursor: pointer;">Amet turpis, feugiat et sit amet</a></li>
+                                <li><a style="cursor: pointer;">Semper mod quisturpis nisi</a></li>
+                            </ul>
+                            <footer><a class="button" style="cursor: pointer;">Do Something</a></footer>
+                        </section>
+
+                    </div>
+
+                    <div id="content" class="8u 12u(mobile) important(mobile)">
+                        <article>
+                            <header>
+                                <h2>{{page.title}}</h2>
+                                {% if page.inline %}
+                                <span class="byline">{{page.inline}}</span>
+                                {% endif %}
+                            </header>
+
+                            {{ content }}
+
+                        </article>
+                    </div>
+                </div>
+            </div>
+            {% include footer.html %}
+        </div>
+    </div>
+    <!--[if lte IE 8]><![endif]-->
+    <script>
+        (function($) {
+            skel.breakpoints({
+                desktop: '(min-width: 737px)',
+                tablet: '(min-width: 737px) and (max-width: 1200px)',
+                mobile: '(max-width: 736px)'
+            }).viewport({
+                breakpoints: {
+                    tablet: {
+                        width: 1080
+                    }
+                }
+            });
+            $(function() {
+                var $window = $(window),
+                    $body = $('body');
+                $('form').placeholder();
+                skel.on('+mobile -mobile', function() {
+                    $.prioritize('.important\\28 mobile\\29', skel.breakpoint('mobile').active);
+                });
+                $('#nav > ul').dropotron({
+                    offsetY: -18,
+                    offsetX: -1,
+                    mode: 'fade',
+                    noOpenerFade: true,
+                    speed: 300,
+                    alignment: 'center'
+                });
+                $('<div id="titleBar">' + '<a href="#navPanel" class="toggle"></a>' + '</div>').appendTo($body);
+                $('<div id="navPanel">' + '<nav>' + $('#nav').navList() + '</nav>' + '</div>').appendTo($body).panel({
+                    delay: 500,
+                    hideOnClick: true,
+                    hideOnSwipe: true,
+                    resetScroll: true,
+                    resetForms: true,
+                    side: 'left',
+                    target: $body,
+                    visibleClass: 'navPanel-visible'
+                });
+                if (skel.vars.os == 'wp' && skel.vars.osVersion < 10) $('#titleBar, #navPanel, #page-wrapper').css('transition', 'none');
+                var poptroxSettings;
+                if (skel.breakpoint('mobile').active) poptroxSettings = {
+                    selector: 'a.image',
+                    baseZIndex: 100000,
+                    overlayClass: 'poptrox-overlay skel-layers-fixed',
+                    usePopupDefaultStyling: false,
+                    overlayColor: '#222',
+                    overlayOpacity: 0.8,
+                    windowMargin: 10,
+                    useBodyOverflow: false,
+                    usePopupNav: false,
+                    usePopupEasyClose: true,
+                    usePopupCloser: false
+                };
+                else poptroxSettings = {
+                    selector: 'a.image',
+                    baseZIndex: 100000,
+                    overlayClass: 'poptrox-overlay skel-layers-fixed',
+                    usePopupDefaultStyling: false,
+                    overlayColor: '#222',
+                    overlayOpacity: 0.8,
+                    windowMargin: 30,
+                    useBodyOverflow: false,
+                    usePopupNav: true,
+                    usePopupEasyClose: false,
+                    popupCloserText: ''
+                };
+                var $portfolio = $('#portfolio');
+                if ($portfolio.length > 0) {
+                    $portfolio.poptrox(poptroxSettings).selectorr({
+                        titleSelector: 'h3',
+                        delay: 250
+                    });
+                }
+                var $portfolioPreview = $('#portfolio-preview');
+                if ($portfolioPreview.length > 0) $portfolioPreview.poptrox(poptroxSettings);
+            });
+        })(jQuery);
+    </script>
+
+</body>
+
+</html>
