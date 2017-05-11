@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1">
+        <meta name="viewport" content="user-scalable=yes,width=device-width,initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <script src="assets/js/util.js"></script> -->
+
+        <title> Voronowledge </title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+        <link rel="shortcut icon" href="/voronowledge/assets/images/favicon.ico" type="image/x-icon" />
+        <!-- <link rel="stylesheet" href="/voronowledge/assets/css/voro.css" /> -->
+        <link rel="stylesheet" href="/voronowledge/assets/css/media.css" />
+        <link rel="stylesheet" href="/voronowledge/assets/css/homepage.css" />
+        <link rel="stylesheet" href="/voronowledge/assets/css/style.css" />
+        <link rel="stylesheet" href="/voronowledge/assets/css/icons.css" />
+        <link rel="stylesheet" href="/voronowledge/assets/css/syntax.css" />
+        <link rel="stylesheet" href="/voronowledge/assets/css/graph.css" />
+    </head>
+
+
+<body>
+    <div id="banner-common">
+        <div id="common">
+            <div id="voronoi-graph"></div>
+            <script src="https://d3js.org/d3.v4.min.js"></script>
+            <script src="/assets/js/voronoi.js"></script>
+            <div class="row">
+
+    <span class="pennant">
+        <a href="/voronowledge/index.html">
+        <img src="/voronowledge/assets/images/voronowledge-logo.png" alt="Voronowledge logo">
+        <h1>Voronowledge</h1>
+        </a>
+    </span>
+</div>
+
+<div class="navbar">
+    <nav class="nav">
+        <ul>
+            <li><a href="/voronowledge/index.html">Home</a></li>
+            <li  class="dropdown"><a href="/voronowledge/blog/">Posts</a>
+                <div class="dropdown-content">
+                    
+                    
+                    
+                        <a href="/voronowledge/archives/tag/interpolation.html">Interpolation</a>
+                    <!-- <a href="#">Test</a> -->
+                    <!-- <a href="#">Test</a> -->
+                    
+                        <a href="/voronowledge/archives/tag/pt-br.html">Pt-br</a>
+                    <!-- <a href="#">Test</a> -->
+                    <!-- <a href="#">Test</a> -->
+                    
+                </div>
+            </li>
+            <!-- <li class="dropdown"><a href="/voronowledge/blog.html">Dropdown</a>
+                <span>
+                    <ul class="dropdown-content">
+                        <li><a>Lorem ipsum dolor</a></li>
+                        <li><a>Phasellus consequat</a></li>
+                        <li><a>Magna phasellus</a></li>
+                        <li><a>Etiam dolore nisl</a></li>
+                        <li><a>Veroeros feugiat</a></li>
+                    </ul>
+                </span>
+            </li> -->
+            <!-- <li><a href="/voronowledge/index.html">Portfolio</a></li> -->
+            <li><a href="/voronowledge/about.html">About</a></li>
+        </ul>
+    </nav>
+</div>
+
+        </div>
+    </div>
+
+    <div id="page">
+        <div id="main">
+            <div class="sidebar-right">
+                <div class="left-content">
+                    <header>
+                        <h1> Métodos de interpolação </h1> 
+                        <h3>By RNakanishi</h3> 
+                        <br>
+                        <ul class="tags-list">
+                            
+                            <li class="tag"><strong>Tags: </strong></li>
+                             
+                            <a class="tag-button" href="/voronowledge/archives/tag/interpolation.html">Interpolation</a> 
+                            <a class="tag-button" href="/voronowledge/archives/tag/pt-br.html">Pt-br</a> 
+                        </ul>
+                    </header>
+
+                    <section>
+                        <p>Interpolações são métodos utilizados quando se deseja saber o valor desconhecido dentro de um intervalo dado por uma amostra.</p>
+
+<h2 id="polinômios-de-lagrange">Polinômios de Lagrange</h2>
+
+<p>O polinômio de Lagrange é da forma $$ P(x) = \sum_{k=0}^n f(x_k)L_k(x) $$ $$ L_k(x) = \frac{\prod_{i=0, i\neq k}^n (x-x_i)}{\prod_{i=0, i\neq k}^n(x_k-x_i)}. $$</p>
+
+<h3 id="implementação">Implementação</h3>
+
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13</pre></td><td class="code"><pre><span class="n">L</span> <span class="o">=</span> <span class="nb">ones</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="nb">length</span><span class="p">(</span><span class="n">x</span><span class="p">));</span> <span class="c1">% Polinomio de Lagrange</span>
+
+<span class="k">for</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">n</span>
+    <span class="n">div</span> <span class="o">=</span> <span class="p">(</span> <span class="n">x</span> <span class="o">-</span> <span class="n">xi</span> <span class="p">);</span> <span class="c1">% Dividendo do produtorio</span>
+    <span class="n">div</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">=</span> <span class="p">[];</span>
+
+    <span class="n">den</span> <span class="o">=</span> <span class="p">(</span> <span class="n">xi</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">-</span> <span class="n">xi</span> <span class="p">);</span> <span class="c1">% Denominador do produtorio</span>
+    <span class="n">den</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">=</span> <span class="p">[];</span>
+
+    <span class="n">L</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">=</span> <span class="nb">prod</span><span class="p">(</span><span class="n">div</span><span class="p">)</span> <span class="p">/</span> <span class="nb">prod</span><span class="p">(</span><span class="n">den</span><span class="p">);</span>
+<span class="k">end</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">yi</span> <span class="o">*</span> <span class="n">L</span><span class="p">;</span> <span class="c1">% Valor avaliado na interpolacao</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p>No código acima, temos que <code class="highlighter-rouge">xi</code> são os pontos de interpolação; <code class="highlighter-rouge">yi</code> são os valores da função que se deseja interpolar, avaliado nos pontos <code class="highlighter-rouge">xi</code>; e <code class="highlighter-rouge">x</code> são os pontos que se deseja calcular, obtendo assim, os valores em <code class="highlighter-rouge">y</code>.</p>
+
+<h2 id="interpolação-de-hermite">Interpolação de Hermite</h2>
+<p>Para construção do polinômio de hermite, é necessário antes apresentar duas ferramentas: diferenças divididas e polinômios de Newton.</p>
+
+<h3 id="diferenças-divididas">Diferenças divididas</h3>
+
+<h3 id="polinômios-de-newton">Polinômios de Newton</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+<h3 id="implementação-1">Implementação</h3>
+
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">z</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">Q</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">);</span>
+<span class="n">N</span> <span class="o">=</span> <span class="nb">ones</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">,</span><span class="nb">length</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
+
+<span class="n">z</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span> <span class="o">=</span> <span class="n">xi</span><span class="p">;</span>
+<span class="n">z</span><span class="p">(</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span> <span class="o">=</span> <span class="n">xi</span><span class="p">;</span>
+
+<span class="c1">% Matriz de Hermite</span>
+<span class="n">Q</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">yi</span><span class="p">;</span>
+<span class="n">Q</span><span class="p">(</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">yi</span><span class="p">;</span>
+<span class="n">Q</span><span class="p">(</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="n">dyi</span><span class="p">;</span>
+
+<span class="n">Q</span><span class="p">(</span><span class="mi">3</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span> <span class="n">Q</span><span class="p">(</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">Q</span><span class="p">(</span><span class="mi">3</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="p">)</span> <span class="o">.</span><span class="p">/</span> <span class="p">(</span> <span class="n">z</span><span class="p">(</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">z</span><span class="p">(</span><span class="mi">3</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span> <span class="p">);</span>
+
+<span class="c1">% Completando a matriz</span>
+<span class="k">for</span> <span class="nb">j</span><span class="o">=</span><span class="mi">3</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span>
+    <span class="k">for</span> <span class="nb">i</span><span class="o">=</span><span class="nb">j</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span>
+        <span class="n">Q</span><span class="p">(</span><span class="nb">i</span><span class="p">,</span><span class="nb">j</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="nb">i</span><span class="p">,</span><span class="nb">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">Q</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="nb">j</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="p">/</span> <span class="p">(</span><span class="n">z</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span> <span class="o">-</span> <span class="n">z</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="nb">j</span><span class="o">+</span><span class="mi">1</span><span class="p">));</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">for</span> <span class="nb">i</span><span class="o">=</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span> <span class="c1">% forma de Newton</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span>
+        <span class="n">N</span><span class="p">(</span><span class="nb">i</span><span class="p">,:)</span> <span class="o">=</span> <span class="n">N</span><span class="p">(</span><span class="nb">i</span><span class="p">,:)</span><span class="o">.*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">z</span><span class="p">(</span><span class="n">k</span><span class="p">));</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+<span class="n">y</span> <span class="o">=</span> <span class="nb">diag</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span><span class="o">'*</span><span class="n">N</span><span class="p">;</span></code></pre></figure>
+
+<p>bla</p>
+
+<h2 id="interpolação-por-partes">Interpolação por partes</h2>
+
+<h3 id="splines-lineares">Splines lineares</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+<h3 id="splines-cúbicas">Splines cúbicas</h3>
+<p>ploplo</p>
+
+                    </section>
+
+                    <!-- <hr style="border: 1px dashed #aaa;"> -->
+                    
+                    <div id="post-footer">
+                        <div class="post-footer-avatar">
+                            <!-- <a class="icon fa-5x fa-user"> </a> -->
+                            <img src="/assets/images/pic01.jpg" class="post-footer-avatar">
+                        </div>
+                        <div class="post-footer-summary">
+                            <h2>RNakanishi</h2>
+                            <p>Rafael Umino Nakanishi</p>
+                            <p>PhD. candidate at ICMC-USP</p>
+                        </div>
+                        <div class="post-footer-headline">
+                            <p> <p>I love cakes. A lot.</p>
+</p>
+                            <!-- Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. -->
+                        </div>
+
+                    </div>
+                    
+
+                </div>
+
+                <div class="right-content">
+                    <section>
+                        <h1 id="conteúdo">Conteúdo</h1>
+<h2 id="polinômios-de-lagrange"><a href="#polinômios-de-lagrange">Polinômios de Lagrange</a></h2>
+<h2 id="interpolação-de-hermite"><a href="#interpolação-de-hermite">Interpolação de Hermite</a></h2>
+<h3 id="diferenças-divididas"><a href="#diferenças-divididas">Diferenças divididas</a></h3>
+<h3 id="polinômios-de-newton"><a href="#polinômios-de-newton">Polinômios de Newton</a></h3>
+<h2 id="interpolação-por-partes"><a href="#interpolação-por-partes">Interpolação por partes</a></h2>
+<h3 id="splines"><a href="#splines">Splines</a></h3>
+<h3 id="splines-cúbicas"><a href="#splines-cúbicas">Splines cúbicas</a></h3>
+
+                    </section>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="footer">
+    <div class="container">
+
+        <header>
+            <h2>Contact info</h2></header>
+        <p>Developed by FilipeCN and RNakanishi.</p>
+
+        <ul class="contact">
+            
+                <li class="icon"><a class="icon fa-github" target="blank" href="https://github.com/FilipeCN"><span>Github FilipeCN</span></a>
+                    <p>FilipeCN</p>
+                </li>
+            
+                <li class="icon"><a class="icon fa-github" target="blank" href="https://github.com/RNakanishi"><span>Github RNakanishi</span></a>
+                    <p>RNakanishi</p>
+                </li>
+            
+            <!-- <li><a class="icon fa-envelope" ><span>Email</span></a></li> -->
+        </ul>
+    </div>
+    <div id="copyright"> © FilipeCN and RNakanishi. All rights reserved. </div>
+</div>
+
+</body>
+
+</html>
